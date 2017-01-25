@@ -14,12 +14,12 @@ import java.util.Set;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
@@ -31,6 +31,7 @@ public class BindFontProcessor extends AbstractProcessor {
 	private static final String TARGET_PARAMETER = "target";
 	private Elements elementUtils;
 	private Filer filer;
+	private Messager messager;
 
 	@Override
 	public SourceVersion getSupportedSourceVersion() {
@@ -49,6 +50,7 @@ public class BindFontProcessor extends AbstractProcessor {
 		super.init(processingEnv);
 		elementUtils = processingEnv.getElementUtils();
 		filer = processingEnv.getFiler();
+		messager = processingEnv.getMessager();
 	}
 
 	@Override
@@ -64,13 +66,12 @@ public class BindFontProcessor extends AbstractProcessor {
 			final Element enclosingElement = entry.getKey();
 
 			final MethodSpec.Builder methodBuilder = MethodSpec.methodBuilder("bind")
-					.addModifiers(Modifier.STATIC)
 					.addParameter(TypeName.get(enclosingElement.asType()), TARGET_PARAMETER);
 
 			entry.getValue().forEach(field -> addBinding(methodBuilder, field));
 
 			final TypeSpec classSpec = TypeSpec
-					.classBuilder(enclosingElement.getSimpleName().toString() + "Binder")
+					.classBuilder(enclosingElement.getSimpleName().toString() + "_FontBinder")
 					.addMethod(methodBuilder.build())
 					.build();
 
@@ -91,7 +92,7 @@ public class BindFontProcessor extends AbstractProcessor {
 		try {
 			javaFile.writeTo(filer);
 		} catch (IOException e) {
-			processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
+			messager.printMessage(Diagnostic.Kind.ERROR, e.getMessage());
 		}
 	}
 

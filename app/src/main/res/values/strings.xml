@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">FontBinder</string>
+    <string name="name">Name</string>
 </resources>
