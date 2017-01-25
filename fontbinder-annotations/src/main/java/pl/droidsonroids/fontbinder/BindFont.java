@@ -1,4 +1,4 @@
-package com.example;
+package pl.droidsonroids.fontbinder;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;

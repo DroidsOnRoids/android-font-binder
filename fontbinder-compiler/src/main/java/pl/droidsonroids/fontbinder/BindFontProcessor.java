@@ -1,4 +1,4 @@
-package com.example;
+package pl.droidsonroids.fontbinder;
 
 import com.google.auto.service.AutoService;
 import com.squareup.javapoet.ClassName;

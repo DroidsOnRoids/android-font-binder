@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
-import com.example.BindFont;
-
 public class MainActivity extends Activity {
 	@BindFont("a")
 	TextView textA;
