@@ -17,7 +17,7 @@ public class MainActivity extends Activity {
 	@Inject
 	Object dummy;
 
-	@BindFont(value = "a.ttf", bold = false)
+	@BindFont(value = "test.ttf", bold = false)
 	@BindView(R.id.label)
 	TextView label;
 

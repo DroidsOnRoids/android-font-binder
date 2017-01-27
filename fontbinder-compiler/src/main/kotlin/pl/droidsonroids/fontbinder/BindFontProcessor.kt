@@ -12,7 +12,9 @@ import javax.tools.Diagnostic
 
 class BindFontProcessor : AbstractProcessor() {
 
-	private val TARGET_PARAMETER = "target"
+	private val TARGET_PARAMETER_NAME = "target"
+	private val typeface: ClassName = ClassName.get("android.graphics", "Typeface")
+
 	private val elementUtils by lazy { processingEnv.elementUtils }
 	private val filer by lazy { processingEnv.filer }
 	private val messager by lazy { processingEnv.messager }
@@ -27,12 +29,16 @@ class BindFontProcessor : AbstractProcessor() {
 		roundEnv.getElementsAnnotatedWith(BindFont::class.java).forEach { element ->
 			targetMap.getOrPut(element.enclosingElement, { mutableSetOf() }).add(element)
 		}
-		for ((enclosingElement, value) in targetMap) {
+
+		for ((enclosingElement, annotatedField) in targetMap) {
 			val enclosingElementTypeName = TypeName.get(enclosingElement.asType())
 			val methodBuilder = MethodSpec.methodBuilder("bind")
 					.addModifiers(Modifier.STATIC)
-					.addParameter(enclosingElementTypeName, TARGET_PARAMETER)
-			value.forEach { field -> addBinding(methodBuilder, field) }
+					.addParameter(enclosingElementTypeName, TARGET_PARAMETER_NAME)
+
+			annotatedField.forEach { field ->
+				addTypeFaceBinding(methodBuilder, field)
+			}
 
 			val classSpec = TypeSpec.classBuilder("${enclosingElement.simpleName}_FontBinder")
 					.addMethod(methodBuilder.build())
@@ -43,11 +49,9 @@ class BindFontProcessor : AbstractProcessor() {
 		return true
 	}
 
-	private fun addBinding(methodBuilder: MethodSpec.Builder, field: Element) {
-		val typeface = ClassName.get("android.graphics", "Typeface")
+	private fun addTypeFaceBinding(methodBuilder: MethodSpec.Builder, field: Element) {
 		val fontPath = field.getAnnotation(BindFont::class.java).value
-		methodBuilder.addStatement("\$N.\$N.setTypeface(\$T.createFromAsset(\$N.getAssets(), \$S))", TARGET_PARAMETER, field.simpleName, typeface, TARGET_PARAMETER, fontPath)
-
+		methodBuilder.addStatement("\$N.\$N.setTypeface(\$T.createFromAsset(\$N.getAssets(), \$S))", TARGET_PARAMETER_NAME, field.simpleName, typeface, TARGET_PARAMETER_NAME, fontPath)
 	}
 
 	private fun createJavaFile(enclosingElement: Element, classSpec: TypeSpec) {
