@@ -15,11 +15,13 @@ android {
 dependencies {
 	provided 'javax.annotation:jsr250-api:1.0'
 	provided 'com.android.support:support-annotations:25.1.0'
+
 	provided project(':fontbinder-annotations')
 	annotationProcessor project(':fontbinder-compiler')
+
 	compile 'com.jakewharton:butterknife:8.5.1'
 	annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+
 	compile 'com.google.dagger:dagger:2.8'
 	annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
-	provided "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
 }
