@@ -21,4 +21,5 @@ dependencies {
 	annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 	compile 'com.google.dagger:dagger:2.8'
 	annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
+	provided "org.jetbrains.kotlin:kotlin-runtime:$kotlin_version"
 }

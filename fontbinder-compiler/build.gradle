@@ -1,15 +1,7 @@
-plugins {
-	id 'java'
-}
-
-import javax.tools.ToolProvider
+apply plugin: 'kotlin'
 
 dependencies {
+	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile project(':fontbinder-annotations')
-	compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
 	compile 'com.squareup:javapoet:1.8.0'
-	runtime files((ToolProvider.getSystemToolClassLoader() as URLClassLoader).getURLs())
 }
-
-sourceCompatibility = JavaVersion.VERSION_1_8
-targetCompatibility = JavaVersion.VERSION_1_8

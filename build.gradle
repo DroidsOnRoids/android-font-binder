@@ -1,18 +1,16 @@
-buildscript {
-	repositories {
-		jcenter()
-	}
-	dependencies {
-		classpath 'com.android.tools.build:gradle:2.3.0-beta2'
-	}
-}
+ext.kotlin_version = '1.0.6'
 
 allprojects {
+	buildscript {
+		repositories {
+			jcenter()
+		}
+		dependencies {
+			classpath 'com.android.tools.build:gradle:2.3.0-beta3'
+			classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+		}
+	}
 	repositories {
 		jcenter()
 	}
-}
-
-task clean(type: Delete) {
-	delete rootProject.buildDir
 }
