@@ -1,7 +1,20 @@
+import javax.tools.ToolProvider
+
 apply plugin: 'kotlin'
 
 dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+	compileOnly 'com.google.android:android:4.1.1.4'
+	testRuntime 'com.google.android:android:4.1.1.4'
 	compile project(':fontbinder-annotations')
 	compile 'com.squareup:javapoet:1.8.0'
+	testCompile 'junit:junit:4.12'
+	testCompile 'com.google.testing.compile:compile-testing:0.10'
+	testRuntime files((ToolProvider.getSystemToolClassLoader() as URLClassLoader).getURLs())
+}
+
+task copyTestResources(type: Copy) {
+	from "${projectDir}/src/test/resources"
+	into "${buildDir}/classes/test"
+	processTestResources.dependsOn delegate
 }
