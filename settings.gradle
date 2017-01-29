@@ -1,1 +1,1 @@
-include ':app', ':fontbinder-compiler', ':fontbinder-annotations'
+include ':app', ':fontbinder-compiler', ':fontbinder-annotations-kotlin', ':fontbinder-annotations-java'

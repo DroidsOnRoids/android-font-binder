@@ -6,7 +6,7 @@ dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compileOnly 'com.google.android:android:4.1.1.4'
 	testRuntime 'com.google.android:android:4.1.1.4'
-	compile project(':fontbinder-annotations')
+	compile project(':fontbinder-annotations-kotlin')
 	compile 'com.squareup:javapoet:1.8.0'
 	testCompile 'junit:junit:4.12'
 	testCompile 'com.google.testing.compile:compile-testing:0.10'

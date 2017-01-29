@@ -16,7 +16,7 @@ dependencies {
 	provided 'javax.annotation:jsr250-api:1.0'
 	provided 'com.android.support:support-annotations:25.1.0'
 
-	provided project(':fontbinder-annotations')
+	provided project(':fontbinder-annotations-java')
 	annotationProcessor project(':fontbinder-compiler')
 
 	compile 'com.jakewharton:butterknife:8.5.1'
