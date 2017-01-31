@@ -19,10 +19,13 @@ class BindFontProcessorTest {
 
 	@Test
 	fun `private field binding raises processing error`() {
+		val sourceFile = JavaFileObjects.forResource("PrivateFieldActivity.java")
 		assert_().about(javaSource())
-				.that(JavaFileObjects.forResource("PrivateFieldActivity.java"))
+				.that(sourceFile)
 				.processedWith(BindFontProcessor())
 				.failsToCompile()
 				.withErrorContaining("private")
+				.`in`(sourceFile)
+				.onLine(8)
 	}
 }

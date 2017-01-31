@@ -38,7 +38,7 @@ class BindFontProcessor : AbstractProcessor() {
 
 			annotatedFields.forEach {
 				if (it.modifiers.contains(Modifier.PRIVATE)) {
-					messager.printMessage(Diagnostic.Kind.ERROR, "Could not bind typeface to private field")
+					messager.printMessage(Diagnostic.Kind.ERROR, "Could not bind typeface to private field", it)
 				}
 				addTypeFaceBindingStatement(methodBuilder, it)
 			}
