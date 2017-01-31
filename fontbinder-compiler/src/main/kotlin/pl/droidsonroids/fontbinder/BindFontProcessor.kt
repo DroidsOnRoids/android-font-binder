@@ -1,8 +1,10 @@
 package pl.droidsonroids.fontbinder
 
+import com.google.auto.service.AutoService
 import com.squareup.javapoet.*
 import java.io.IOException
 import javax.annotation.processing.AbstractProcessor
+import javax.annotation.processing.Processor
 import javax.annotation.processing.RoundEnvironment
 import javax.lang.model.SourceVersion
 import javax.lang.model.element.Element
@@ -10,6 +12,7 @@ import javax.lang.model.element.Modifier
 import javax.lang.model.element.TypeElement
 import javax.tools.Diagnostic
 
+@AutoService(Processor::class)
 class BindFontProcessor : AbstractProcessor() {
 
 	private val TARGET_PARAMETER_NAME = "target"
