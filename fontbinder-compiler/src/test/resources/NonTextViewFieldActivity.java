@@ -3,7 +3,7 @@ package pl.droidsonroids.fontbinder;
 import android.app.Activity;
 import android.widget.TextView;
 
-public class ValidActivity extends Activity {
+public class NonTextViewFieldActivity extends Activity {
 	@BindFont("test.ttf")
-	TextView foo;
+	int foo;
 }

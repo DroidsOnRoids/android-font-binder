@@ -5,5 +5,5 @@ import android.widget.TextView;
 
 public class PrivateFieldActivity extends Activity {
 	@BindFont("test.ttf")
-	private TextView testTextView;
+	private TextView foo;
 }

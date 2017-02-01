@@ -4,6 +4,6 @@ import android.graphics.Typeface;
 
 class ValidActivity_FontBinder {
   static void bind(ValidActivity target) {
-    target.testTextView.setTypeface(Typeface.createFromAsset(target.getAssets(), "test.ttf"));
+    target.foo.setTypeface(Typeface.createFromAsset(target.getAssets(), "test.ttf"));
   }
 }

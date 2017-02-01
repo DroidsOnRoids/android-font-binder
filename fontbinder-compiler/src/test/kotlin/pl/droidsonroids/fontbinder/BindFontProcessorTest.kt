@@ -3,6 +3,7 @@ package pl.droidsonroids.fontbinder
 import com.google.common.truth.Truth.assert_
 import com.google.testing.compile.JavaFileObjects
 import com.google.testing.compile.JavaSourceSubjectFactory.javaSource
+import org.junit.Ignore
 import org.junit.Test
 
 class BindFontProcessorTest {
@@ -25,6 +26,19 @@ class BindFontProcessorTest {
 				.processedWith(BindFontProcessor())
 				.failsToCompile()
 				.withErrorContaining("private")
+				.`in`(sourceFile)
+				.onLine(8)
+	}
+
+	@Test
+	@Ignore("TODO")
+	fun `non TextView field binding raises processing error`() {
+		val sourceFile = JavaFileObjects.forResource("NonTextViewFieldActivity.java")
+		assert_().about(javaSource())
+				.that(sourceFile)
+				.processedWith(BindFontProcessor())
+				.failsToCompile()
+				.withErrorContaining("TextView")
 				.`in`(sourceFile)
 				.onLine(8)
 	}
