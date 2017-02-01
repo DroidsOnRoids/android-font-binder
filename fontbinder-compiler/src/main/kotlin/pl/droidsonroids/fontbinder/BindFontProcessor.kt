@@ -16,7 +16,7 @@ import javax.tools.Diagnostic
 class BindFontProcessor : AbstractProcessor() {
 
 	private val TARGET_PARAMETER_NAME = "target"
-	private val typefaceClassName: ClassName = ClassName.get(android.graphics.Typeface::class.java)
+	private val typefaceClassName = ClassName.get(android.graphics.Typeface::class.java)
 
 	private val elementUtils by lazy { processingEnv.elementUtils }
 	private val filer by lazy { processingEnv.filer }
@@ -26,7 +26,7 @@ class BindFontProcessor : AbstractProcessor() {
 
 	override fun getSupportedSourceVersion(): SourceVersion = SourceVersion.latestSupported()
 
-	override fun process(annotations: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
+	override fun process(annotatedElements: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
 		val targetMap: MutableMap<Element, MutableSet<Element>> = mutableMapOf()
 
 		roundEnv.getElementsAnnotatedWith(BindFont::class.java).forEach { element ->
@@ -47,10 +47,10 @@ class BindFontProcessor : AbstractProcessor() {
 				methodBuilder.addTypeFaceBindingStatement(it)
 			}
 
-			val classSpec = TypeSpec.classBuilder("${enclosingElement.simpleName}_FontBinder")
+			TypeSpec.classBuilder("${enclosingElement.simpleName}_FontBinder")
 					.addMethod(methodBuilder.build())
 					.build()
-			classSpec.createJavaFile(enclosingElement)
+					.createJavaFile(enclosingElement)
 		}
 		return true
 	}
