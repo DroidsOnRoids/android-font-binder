@@ -10,6 +10,7 @@ import java.lang.reflect.Field;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import hugo.weaving.DebugLog;
 
 public class MainActivity extends Activity {
 
@@ -22,6 +23,7 @@ public class MainActivity extends Activity {
 	EditText editText;
 
 	@Override
+	@DebugLog
 	protected void onCreate(@Nullable Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
