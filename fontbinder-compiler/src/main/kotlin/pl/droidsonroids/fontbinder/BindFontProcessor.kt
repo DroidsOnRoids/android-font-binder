@@ -1,5 +1,6 @@
 package pl.droidsonroids.fontbinder
 
+import android.graphics.Typeface
 import com.google.auto.service.AutoService
 import com.squareup.javapoet.*
 import java.io.IOException
@@ -16,7 +17,7 @@ import javax.tools.Diagnostic
 class BindFontProcessor : AbstractProcessor() {
 
 	private val TARGET_PARAMETER_NAME = "target"
-	private val typefaceClassName = ClassName.get(android.graphics.Typeface::class.java)
+	private val typefaceClassName = ClassName.get(Typeface::class.java)
 
 	private val elementUtils by lazy { processingEnv.elementUtils }
 	private val filer by lazy { processingEnv.filer }

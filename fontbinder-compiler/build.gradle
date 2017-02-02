@@ -5,7 +5,7 @@ apply plugin: 'kotlin'
 dependencies {
 	compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 	compile 'com.squareup:javapoet:1.8.0'
-	compile project(':fontbinder-annotations-kotlin')
+	compile project(':fontbinder-annotations-java')
 	compile 'com.google.android:android:4.1.1.4'
 	compileOnly 'com.google.auto.service:auto-service:1.0-rc2'
 	kapt 'com.google.auto.service:auto-service:1.0-rc2'
