@@ -19,6 +19,7 @@ public class MainActivity extends Activity {
 	TextView label;
 
 	@BindFont("b.ttf")
+	@BindFont("b32.ttf")
 	@BindView(R.id.editText)
 	EditText editText;
 

@@ -23,14 +23,14 @@ class BindFontProcessor : AbstractProcessor() {
 	private val filer by lazy { processingEnv.filer }
 	private val messager by lazy { processingEnv.messager }
 
-	override fun getSupportedAnnotationTypes() = setOf(BindFont::class.java.canonicalName)
+	override fun getSupportedAnnotationTypes() = setOf(BindFonts::class.java.canonicalName)
 
 	override fun getSupportedSourceVersion(): SourceVersion = SourceVersion.latestSupported()
 
 	override fun process(annotatedElements: MutableSet<out TypeElement>, roundEnv: RoundEnvironment): Boolean {
 		val targetMap: MutableMap<Element, MutableSet<Element>> = mutableMapOf()
 
-		roundEnv.getElementsAnnotatedWith(BindFont::class.java).forEach { element ->
+		roundEnv.getElementsAnnotatedWith(BindFonts::class.java).forEach { element ->
 			targetMap.getOrPut(element.enclosingElement, { mutableSetOf() })
 					.add(element)
 		}
@@ -57,8 +57,11 @@ class BindFontProcessor : AbstractProcessor() {
 	}
 
 	private fun MethodSpec.Builder.addTypeFaceBindingStatement(field: Element) {
-		val fontPath = field.getAnnotation(BindFont::class.java).value
-		addStatement("\$N.\$N.setTypeface(\$T.createFromAsset(\$N.getAssets(), \$S))", TARGET_PARAMETER_NAME, field.simpleName, typefaceClassName, TARGET_PARAMETER_NAME, fontPath)
+		val fonts = field.getAnnotation(BindFonts::class.java).value
+		fonts.forEach {
+			val fontPath = it.value
+			addStatement("\$N.\$N.setTypeface(\$T.createFromAsset(\$N.getAssets(), \$S))", TARGET_PARAMETER_NAME, field.simpleName, typefaceClassName, TARGET_PARAMETER_NAME, fontPath)
+		}
 	}
 
 	private fun TypeSpec.createJavaFile(enclosingElement: Element) {
